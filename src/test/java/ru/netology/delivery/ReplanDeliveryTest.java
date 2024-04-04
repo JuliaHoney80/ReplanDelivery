@@ -27,6 +27,7 @@ public class ReplanDeliveryTest {
         String firstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
         int daysToAddForSecondMeeting = 7;
         String secondMeetingDate = DataGenerator.generateDate(daysToAddForSecondMeeting);
+
         $("data-test-id='city')input").setValue(validUser.getCity());
         $("data-test-id='date')input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
         $("data-test-id='date')input").setValue(firstMeetingDate);
