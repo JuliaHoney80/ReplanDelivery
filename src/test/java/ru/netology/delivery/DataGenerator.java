@@ -1,9 +1,7 @@
 package ru.netology.delivery;
 
 import com.github.javafaker.Faker;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 import lombok.Value;
 
 import java.time.LocalDate;
@@ -16,7 +14,7 @@ public class DataGenerator {
     }
 
     public static String generateDate(int shift) {
-        return LocalDate.now().plusDays(7).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        return LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
     }
 
@@ -45,8 +43,7 @@ public class DataGenerator {
         }
 
 
-        @Data
-        @AllArgsConstructor
+        @Value
 
         public static class UserInfo {
             String city;
@@ -57,8 +54,7 @@ public class DataGenerator {
 
 
 
-
-    }
+}
 
 
 
