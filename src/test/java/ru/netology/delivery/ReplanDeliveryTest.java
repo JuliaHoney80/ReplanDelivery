@@ -3,6 +3,7 @@ package ru.netology.delivery;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.codeborne.selenide.selector.ByText;
+import io.opentelemetry.sdk.metrics.internal.aggregator.EmptyMetricData;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
@@ -16,9 +17,9 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.files.DownloadActions.click;
 
 public class ReplanDeliveryTest {
-    private final DataGenerator.UserInfo validUser = DataGenerator.Registration.generateUser("ru");
-    private final daysToAddForFirstMeeting = 4;
-    private final StringFirstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
+    //private final DataGenerator.UserInfo validUser = DataGenerator.Registration.generateUser("ru");
+    //private final daysToAddForFirstMeeting = 4;
+    //private final StringFirstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
 
     @BeforeAll
     static void setUpAll() {
@@ -38,7 +39,7 @@ public class ReplanDeliveryTest {
     @Test
     @DisplayName("Should successful plan meeting")
     void shouldSuccessfulPlanMeeting() {
-        DataGenerator.UserInfo validUser = DataGenerator.Registration.generateUser("ru");
+        var validUser = DataGenerator.Registration.generateUser("ru");
         int daysToAddForFirstMeeting = 4;
         String firstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
         int daysToAddForSecondMeeting = 7;
@@ -69,15 +70,19 @@ public class ReplanDeliveryTest {
     @Test
     @DisplayName("Should get error message if entered wrong phone number")
     void shouldGetErrorIfWrongPhone() {
+        var validUser = DataGenerator.Registration.generateUser("ru");
+        int daysToAddForFirstMeeting = 4;
+        String firstMeetingDate = DataGenerator.generateDate(daysToAddForFirstMeeting);
         $("[data-test-id='city'] input").setValue(validUser.getCity());
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         $("[data-test-id='date'] input").setValue(firstMeetingDate);
         $("[data-test-id='name'] input").setValue(validUser.getName());
         $("[data-test-id='phone] input").setValue(DataGenerator.generateWrongPhone("en"));
         $("[data-test-id='agreement']").click();
-        $(byText("Запланировать")) .click();
+        $(byText("Запланировать")).click();
         $("[data-test-id='phone'] .input__sub")
                 .shouldHave(exactText("Неверный формат номера мобильного телефона"));
+
 
     }
 }
